@@ -14,7 +14,7 @@ def game_hash
           assists: 12,
           steals: 3,
           blocks: 1,
-          slam_dunks: 1
+          slam_dunks: 1,
         },
         {
           player_name: "Reggie Evans",
@@ -25,7 +25,7 @@ def game_hash
           assists: 12,
           steals: 12,
           blocks: 12,
-          slam_dunks: 7
+          slam_dunks: 7,
         },
         {
           player_name: "Brook Lopez",
@@ -36,7 +36,7 @@ def game_hash
           assists: 10,
           steals: 3,
           blocks: 1,
-          slam_dunks: 15
+          slam_dunks: 15,
         },
         {
           player_name: "Mason Plumlee",
@@ -47,7 +47,7 @@ def game_hash
           assists: 6,
           steals: 3,
           blocks: 8,
-          slam_dunks: 5
+          slam_dunks: 5,
         },
         {
           player_name: "Jason Terry",
@@ -58,9 +58,9 @@ def game_hash
           assists: 2,
           steals: 4,
           blocks: 11,
-          slam_dunks: 1
-        }
-      ]
+          slam_dunks: 1,
+        },
+      ],
     },
     away: {
       team_name: "Charlotte Hornets",
@@ -75,7 +75,7 @@ def game_hash
           assists: 1,
           steals: 2,
           blocks: 7,
-          slam_dunks: 2
+          slam_dunks: 2,
         },
         {
           player_name: "Bismack Biyombo",
@@ -86,7 +86,7 @@ def game_hash
           assists: 7,
           steals: 22,
           blocks: 15,
-          slam_dunks: 10
+          slam_dunks: 10,
         },
         {
           player_name: "DeSagna Diop",
@@ -97,7 +97,7 @@ def game_hash
           assists: 12,
           steals: 4,
           blocks: 5,
-          slam_dunks: 5
+          slam_dunks: 5,
         },
         {
           player_name: "Ben Gordon",
@@ -108,7 +108,7 @@ def game_hash
           assists: 2,
           steals: 1,
           blocks: 1,
-          slam_dunks: 0
+          slam_dunks: 0,
         },
         {
           player_name: "Kemba Walker",
@@ -119,11 +119,102 @@ def game_hash
           assists: 12,
           steals: 7,
           blocks: 5,
-          slam_dunks: 12
-        }
-      ]
-    }
+          slam_dunks: 12,
+        },
+      ],
+    },
   }
 end
 
 # Write code here
+
+def num_points_scored(player_name)
+  game_hash.each do |key, value|
+    value[:players].each do |playerer|
+      if playerer[:player_name] == player_name
+        puts playerer[:points]
+        return playerer[:points]
+      end
+    end
+  end
+end
+
+# num_points_scored("Jason Terry")
+
+def shoe_size(player_name)
+  game_hash.each do |key, value|
+    value[:players].each do |playerer|
+      if playerer[:player_name] == player_name
+        puts playerer[:shoe]
+        return playerer[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |key, value|
+    if value[:team_name] == team_name
+      pp value[:colors]
+      return value[:colors]
+    end
+  end
+end
+
+# team_colors("Charlotte Hornets")
+
+def team_names
+  team = []
+  game_hash.each do |key, value|
+    team << value[:team_name]
+  end
+  team
+end
+
+def player_numbers(team_name)
+  player_num = []
+  game_hash.each do |key, value|
+    if value[:team_name] == team_name
+      value[:players].each do |player|
+        player_num << player[:number]
+      end
+    end
+  end
+
+  player_num
+end
+
+def player_stats(player_name)
+  game_hash.each do |key, value|
+    value[:players].each do |playerer|
+      if playerer[:player_name] == player_name
+        return {
+                 :player_name => playerer[:player_name],
+                 :number => playerer[:number],
+                 :shoe => playerer[:shoe],
+                 :points => playerer[:points],
+                 :rebounds => playerer[:rebounds],
+                 :assists => playerer[:assists],
+                 :steals => playerer[:steals],
+                 :blocks => playerer[:blocks],
+                 :slam_dunks => playerer[:slam_dunks],
+               }
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  bigboy = []
+  game_hash.each do |key, value|
+    value[:players].each do |playerer|
+      detail = { :shoe => playerer[:shoe],
+                 :rebounds => playerer[:rebounds] }
+      bigboy << detail
+    end
+  end
+  ranked_shoe = bigboy.sort_by { |each_boy| each_boy[:shoe] }
+  ranked_shoe[-1][:rebounds]
+end
+
+# big_shoe_rebounds
